@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^uv-domjudge/v1/containers/', include('container.api.urls', namespace='api-container')),
     url(r'^uv-domjudge/v1/images/', include('image.api.urls', namespace='api-image')),
     url(r'^uv-domjudge/v1/periods/', include('period.api.urls', namespace='api-period')),
+    url(r'^uv-domjudge/v1/users/', include('user.api.urls', namespace='api-user')),
 
     # authenthication
     url(r'^uv-domjudge/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),

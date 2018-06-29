@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="Python 3.6 (api-uvdomjudge) (1)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="app-uvdomjudge" />
     <orderEntry type="module" module-name="containers-uvdomjudge" />
+    <orderEntry type="module" module-name="app-uvdomjudge" />
   </component>
 </module>

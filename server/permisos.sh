@@ -12,3 +12,5 @@ chmod +x server_create_period.py &
 chmod +x server_image.py &
 chmod +x server_periods_by_administrator.py &
 chmod +x server_delete_period_courses.py &
+chmod +x server_delete_period.py
+chmod +x server_create_user.py &
