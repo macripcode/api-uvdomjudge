@@ -12,7 +12,7 @@ def get_container(name_container):
 
     url = "http://127.0.0.1:8001/uv-domjudge/v1/containers/"+name_container
 
-    headers = { 'content-type': "application/json",'authorization': "Token fc38c8f651af1392b04b5c7d5af652ac664217ff", }
+    headers = { 'content-type': "application/json",'cache-control': "no-cache",'authorization': "Token 39eb509fbf0f696ac7ddd75df9b7964c16a18f04" }
 
     response = requests.get(url, headers=headers)
 
