@@ -33,6 +33,8 @@ def users(request):
         if serializer.is_valid():
             serializer.save()
             user = User.objects.get(username=data['username'])
+            user.id=data['id']
+            user.save()
             token = Token.objects.create(user_id=user.id,key=data['token'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
