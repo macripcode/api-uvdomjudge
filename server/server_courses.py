@@ -11,7 +11,7 @@ channel.queue_declare(queue='queue_get_courses')
 def get_courses():
     url = "http://127.0.0.1:8001/uv-domjudge/v1/courses/"
 
-    headers = { 'content-type': "application/json",'authorization': "Token 39eb509fbf0f696ac7ddd75df9b7964c16a18f04", }
+    headers = { 'content-type': "application/json",'authorization': "Token bcb2de1b9db71d38d8288c99e52e229104e539d9", }
 
     response = requests.get(url, headers=headers)
 

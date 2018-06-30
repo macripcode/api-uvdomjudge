@@ -13,13 +13,10 @@ channel.queue_declare(queue='queue_create_user')
 def create_user(user):
     url = "http://127.0.0.1:8001/uv-domjudge/v1/users/"
     response = requests.post(url=url, json=user)
-
     return response.status_code
 
 
 def on_request(ch, method, props, body):
-    print("desde create user request")
-    print(body)
     user = json.loads(body.decode('utf-8'))
     response = create_user(user)
 
@@ -32,18 +29,7 @@ def on_request(ch, method, props, body):
 
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(on_request, queue='queue_create_course')
+channel.basic_consume(on_request, queue='queue_create_user')
 
 print(" [x] Awaiting RPC requests")
 channel.start_consuming()
-
-"""
-{'id_course': '201701750001M01', 'code_course': '750001M', 'name_course': 'Algoritmia y Programación', 'credits_course': '4', 'professor_course': '1144049795', 'group_course': '01', 'programming_language': '1', 'period_course': '01', 'year_course': '2017', 'academic_period': '201701'}
-
-
-
-from server.server_create_course import create_course
-from server import server_create_course
-"""
-
-
