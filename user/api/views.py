@@ -7,6 +7,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework import status
 from rest_framework.response import Response
 from .serializers import UserSerializer
+from .serializers import TokenSerializer
 from .functions import set_id_user
 from .functions import create_token_user
 
@@ -70,3 +71,20 @@ def user_detail(request, pk):
     if request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+def get_token(request, id_user):
+    if request.method == 'GET':
+        token = Token.objects.get(user_id=id_user)
+        serializer = TokenSerializer(token)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'DELETE':
+        return Response(status=status.HTTP_404_NOT_FOUND)
