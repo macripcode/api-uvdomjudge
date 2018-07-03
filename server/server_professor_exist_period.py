@@ -1,30 +1,29 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-.
 import pika
 import requests
-import json
 
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
-channel.queue_declare(queue='queue_get_container')
+channel.queue_declare(queue='queue_exist_period')
 
-def get_container(name_container):
+def check_period(id_period):
 
-    url = "http://127.0.0.1:8001/uv-domjudge/v1/containers/"+name_container
+    url = "http://127.0.0.1:8001/uv-domjudge/v1/periods/"+id_period
 
-    headers = { 'content-type': "application/json",'authorization': "Token bcb2de1b9db71d38d8288c99e52e229104e539d9", }
+    response = requests.get(url)
 
-    response = requests.get(url, headers=headers)
+    print("desde check period")
 
-    return (response.text).encode('utf-8')
+    return str(response.status_code).encode('utf-8')
 
 
 def on_request(ch, method, props, body):
-    name_container = body.decode('utf-8')
+    id_period = body.decode('utf-8')
 
-    print("Get Current Container")
-    response = get_container(name_container)
-    print("la respuesta del server container")
+    print("Get Current period")
+    response = check_period(id_period)
     print(response)
 
     ch.basic_publish(exchange='',
@@ -35,7 +34,7 @@ def on_request(ch, method, props, body):
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(on_request, queue='queue_get_container')
+channel.basic_consume(on_request, queue='queue_exist_period')
 
 print(" [x] Awaiting RPC requests")
 channel.start_consuming()

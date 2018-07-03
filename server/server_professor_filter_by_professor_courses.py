@@ -1,30 +1,25 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-.
+# -*- coding: utf-8 -*-
+
 import pika
 import requests
 
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
-channel.queue_declare(queue='queue_check_period')
+channel.queue_declare(queue='queue_filter_by_professor_course')
 
-def check_period(id_period):
 
-    url = "http://127.0.0.1:8001/uv-domjudge/v1/periods/"+id_period
-
+def get_courses_by_professor(id_professor):
+    url = "http://127.0.0.1:8001/uv-domjudge/v1/courses/"+id_professor+"/professor"
     response = requests.get(url)
-
-    print("desde check period")
-
-    return str(response.status_code).encode('utf-8')
+    print(str(response.text).encode('utf-8'))
+    return str(response.text).encode('utf-8')
 
 
 def on_request(ch, method, props, body):
-    id_period = body.decode('utf-8')
-
-    print("Get Current period")
-    response = check_period(id_period)
-    print(response)
+    id_professor = body.decode('utf-8')
+    response = get_courses_by_professor(id_professor)
 
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
@@ -34,12 +29,8 @@ def on_request(ch, method, props, body):
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(on_request, queue='queue_check_period')
+channel.basic_consume(on_request, queue='queue_filter_by_professor_course')
 
 print(" [x] Awaiting RPC requests")
 channel.start_consuming()
 
-
-"""
-from server import server_courses
-"""
