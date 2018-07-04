@@ -15,3 +15,4 @@ chmod +x server_periods_by_administrator.py &
 chmod +x server_delete_period_courses.py &
 chmod +x server_delete_period.py
 chmod +x server_create_user.py &
+chmod +x server_public_exists_container.py &
