@@ -16,3 +16,4 @@ chmod +x server_delete_period_courses.py &
 chmod +x server_delete_period.py
 chmod +x server_create_user.py &
 chmod +x server_public_exists_container.py &
+chmod +x server_professor_put_container.py &

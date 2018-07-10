@@ -17,6 +17,7 @@
 ./server_periods_by_administrator.py &
 ./server_delete_period_courses.py &
 ./server_public_exists_container.py &
+./server_professor_put_container.py &
 
 
 
