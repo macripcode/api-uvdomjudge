@@ -6,13 +6,13 @@ import requests
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
-channel.queue_declare(queue='queue_get_course_detail')
+channel.queue_declare(queue='queue_get_course')
 
 def get_course(id_course):
 
     url = "http://127.0.0.1:8001/uv-domjudge/v1/courses/"+id_course
 
-    headers = { 'content-type': "application/json",'authorization': "Token 39eb509fbf0f696ac7ddd75df9b7964c16a18f04", }
+    headers = { 'content-type': "application/json" }
 
     response = requests.get(url, headers=headers)
     print("desde get course")
@@ -31,12 +31,7 @@ def on_request(ch, method, props, body):
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(on_request, queue='queue_get_course_detail')
+channel.basic_consume(on_request, queue='queue_get_course')
 
 print(" [x] Awaiting RPC requests")
 channel.start_consuming()
-
-
-"""
-from server import server_courses
-"""

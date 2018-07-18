@@ -3,7 +3,7 @@
 chmod +x server_professor_exist_course.py &
 chmod +x server_professor_exist_period.py &
 chmod +x server_public_get_container.py &
-chmod +x server_course.py &
+chmod +x server_public_get_course.py
 chmod +x server_public_get_courses.py &
 chmod +x server_public_user_detail.py &
 chmod +x server_professor_filter_by_professor_courses.py &
